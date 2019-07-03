@@ -1,4 +1,4 @@
-const cacheName = 'review-cache-v1';
+const cacheName = 'serviceworker-v1';
 const cacheAssets = [
   './',
   'index.html',
@@ -19,9 +19,7 @@ const cacheAssets = [
   './img/8.jpg',
   './img/9.jpg',
   './img/10.jpg',
-  './img/favicon.png',
-  'https://fonts.googleapis.com/css?family=Barlow+Condensed:300,400,500,600',
-  'https://fonts.googleapis.com/css?family=Montserrat:600',
+  './img/restaurant.ico',
   'restaurant.html?id=1',
   'restaurant.html?id=2',
   'restaurant.html?id=3',
@@ -31,7 +29,8 @@ const cacheAssets = [
   'restaurant.html?id=7',
   'restaurant.html?id=8',
   'restaurant.html?id=9',
-  'restaurant.html?id=10'
+  'restaurant.html?id=10',
+  'https://unpkg.com/leaflet@1.3.1/dist/leaflet.css'
 ];
 
 self.addEventListener('install', function(event) {
@@ -49,7 +48,7 @@ self.addEventListener('activate', function (event) {
           .then( (cacheNames) => {
             return Promise.all(
                 cacheNames.filter(function (cacheName) {
-                    return cacheName.startsWith('review-') &&
+                    return cacheName.startsWith('serviceworker-') &&
                         cacheName != cacheName;
                 }).map(function (cacheName) {
                     return caches.delete(cacheName);
