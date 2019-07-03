@@ -1,0 +1,45 @@
+@charset "utf-8";
+
+@media screen and (min-width: 1160px) {
+    #restaurants-list li {
+        flex-basis: 24%;
+    }
+}
+@media screen and (min-width: 998px) and (max-width: 1160px) {
+    #restaurants-list li {
+        flex-basis: 40%;
+    }
+    
+}
+@media screen and (max-width: 986px) {
+    #restaurants-list li {
+        flex-basis: 90%;
+    }
+}
+
+@media screen and (max-width: 998px) {
+    .inside header {
+        position: relative;
+    }
+    .inside #breadcrumb {
+        width: initial;
+    }
+    .inside #map-container {
+        position: relative !important;
+        width: 100% !important;
+        height: 500px !important;
+        top: 0px;
+    }
+    .inside #restaurant-container {
+        width: initial;
+        padding: 20px 40px 30px;
+    }
+    .inside #reviews-container {
+        width: initial;
+    }
+    .inside #footer {
+        position: relative;
+        width: initial;
+    }
+}
+
