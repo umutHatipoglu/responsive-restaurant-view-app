@@ -2,6 +2,7 @@ const cacheName = 'serviceworker-v1';
 const cacheAssets = [
   './',
   'index.html',
+  'restaurant.html',
   './css/styles.css',
   './css/responsive.css',
   './js/main.js',
@@ -9,6 +10,7 @@ const cacheAssets = [
   './js/dbhelper.js',
   './js/restaurant_info.js',
   './data/restaurants.json',
+  'https://unpkg.com/leaflet@1.3.1/dist/leaflet.css',
   './img/1.jpg',
   './img/2.jpg',
   './img/3.jpg',
@@ -29,9 +31,32 @@ const cacheAssets = [
   'restaurant.html?id=7',
   'restaurant.html?id=8',
   'restaurant.html?id=9',
-  'restaurant.html?id=10',
-  'https://unpkg.com/leaflet@1.3.1/dist/leaflet.css'
+  'restaurant.html?id=10'
 ];
+
+self.addEventListener('fetch', (event) => {
+    event.respondWith(
+      caches.match(event.request)
+        .then((response) => {
+          return response || fetch(event.request);
+        })
+    );
+  });
+
+
+self.addEventListener('activate', function (event) {
+    event.waitUntil(caches.keys()
+            .then( (cacheNames) => {
+                return Promise.all(
+                    cacheNames.filter(function (cacheName) {
+                        return cacheName.startsWith('serviceworker-') && cacheName != cacheName;
+                    }).map(function (cacheName) {
+                        return caches.delete(cacheName);
+                    })
+                );
+            })
+        );
+});  
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
@@ -42,27 +67,4 @@ self.addEventListener('install', function(event) {
   );
 });
 
-self.addEventListener('activate', function (event) {
-    event.waitUntil(
-        caches.keys()
-          .then( (cacheNames) => {
-            return Promise.all(
-                cacheNames.filter(function (cacheName) {
-                    return cacheName.startsWith('serviceworker-') &&
-                        cacheName != cacheName;
-                }).map(function (cacheName) {
-                    return caches.delete(cacheName);
-                })
-            );
-          })
-    );
-});
 
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        return response || fetch(event.request);
-      })
-  );
-});
