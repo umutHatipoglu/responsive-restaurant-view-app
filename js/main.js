@@ -111,8 +111,6 @@ updateRestaurants = () => {
 
   const cIndex = cSelect.selectedIndex;
   const nIndex = nSelect.selectedIndex;
-  console.log('restaurants init: ', cIndex, nIndex);
-
 
   const cuisine = cSelect[cIndex].value;
   const neighborhood = nSelect[nIndex].value;
@@ -124,20 +122,15 @@ updateRestaurants = () => {
       resetRestaurants(restaurants);
       fillRestaurantsHTML();
       if(initialLoadComplete){
-        const firstListElement = document.getElementsByClassName("restaurant-img")[0];
-        if(firstListElement){
-          firstListElement.focus();
+        const firstListHeaderElement = document.querySelector("li h1");
+        if(firstListHeaderElement){
+          firstListHeaderElement.focus();
         }
       }else{
         initialLoadComplete = true
       }
     }
   })
-}
-
-selectRestaurants = () =>{
-  console.log('select');
-  
 }
 
 /**
@@ -177,11 +170,11 @@ createRestaurantHTML = (restaurant) => {
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   image.alt = restaurant.name;
-  image.tabIndex = "0";
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   li.append(image);
 
   const name = document.createElement('h1');
+  name.tabIndex = "-1";
   name.innerHTML = restaurant.name;
   li.append(name);
 
